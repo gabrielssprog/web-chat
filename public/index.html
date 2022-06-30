@@ -46,5 +46,17 @@
             </div>
         </form>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('new-message',(data) => {
+            console.log(data)
+        }) 
+
+        function sendMessage() {
+            socket.emit('new-message', {message_text: 'message...', user_name: 'gabriel'})
+        }
+    </script>
 </body>
 </html>
