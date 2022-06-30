@@ -19,7 +19,7 @@
                 <p class="user-name-tooltip">Click para editar o nome do usuário</p>
             </div>
             <div class="row">
-                <p>1000 usuários onlines</p>
+                <p id="connected-users">0 usuários onlines</p>
             </div>
         </header>
         <div id="messages" class="messages">
@@ -47,6 +47,11 @@
             `
         }) 
 
+        socket.on('change-connected-users', (data) => {
+            const connectedUsers = document.getElementById('connected-users')
+            connectedUsers.innerHTML = `${data.connected_users} usuários conectados`
+        })
+
         function sendMessage(event) {
             event.preventDefault()
             const inputMessage = document.getElementById('input-message')
@@ -60,7 +65,6 @@
             const messages = document.getElementById('messages')
             messages.innerHTML += `
                 <div class="message">
-                    <h3>${userName.innerHTML}</h3>
                     <p>${inputMessage.value}</p>
                 </div>
             `

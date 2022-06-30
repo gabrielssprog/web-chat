@@ -12,12 +12,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   public handleConnection(client: Socket) {
     this.connectedUsers++
-    client.broadcast.emit('change-connected-users', { connectedUsers: this.connectedUsers})
+    client.broadcast.emit('change-connected-users', { connected_users: this.connectedUsers})
+    client.emit('change-connected-users', { connected_users: this.connectedUsers})
   }
 
   public handleDisconnect(client: Socket) {
     this.connectedUsers--
-    client.broadcast.emit('change-connected-users', { connectedUsers: this.connectedUsers})
+    client.broadcast.emit('change-connected-users', { connected_users: this.connectedUsers})
   }
 
   @SubscribeMessage('new-message')

@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #212121;
+    background-color: #000;
 }
 
 #app {
@@ -28,6 +28,7 @@ body {
 
 .header #user-name {
     font-size: 20pt;
+    font-weight: 700;
 }
 
 .header .user-name-tooltip {
