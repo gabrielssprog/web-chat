@@ -26,8 +26,13 @@ body {
     padding: 12px;
 }
 
+.header #user-name {
+    font-size: 20pt;
+}
+
 .header .user-name-tooltip {
     font-size: 10pt;
+    color: #ccc;
 }
 
 .messages {

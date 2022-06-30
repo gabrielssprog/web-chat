@@ -15,31 +15,18 @@
     <div id="app">
         <header class="header">
             <div class="row">
-                <h3 class="user-name">Gabriel</h3>
+                <p contenteditable id="user-name" class="user-name">Gabriel</p>
                 <p class="user-name-tooltip">Click para editar o nome do usuário</p>
             </div>
             <div class="row">
                 <p>1000 usuários onlines</p>
             </div>
         </header>
-        <div class="messages">
-            <div class="message">
-                <h3>Gabriel</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <p>Aldus PageMaker including versions of Lorem Ipsum.</p>
-            </div>
-            <div class="message">
-                <h3>Gabriel</h3>
-                <p>Aldus PageMaker including versions of Lorem Ipsum.</p>
-            </div>
-            <div class="message">
-                <h3>Gabriel</h3>
-                <p>Aldus PageMaker including versions of Lorem Ipsum.</p>
-            </div>
+        <div id="messages" class="messages">
         </div>
-        <form class="message-form">
+        <form class="message-form" onsubmit="sendMessage(event)">
             <div class="message-input">
-                <input type="text" placeholder="Digite a mensagem...">
+                <input id="input-message" type="text" placeholder="Digite a mensagem...">
                 <button type="submit" class="send-message-button">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
@@ -51,11 +38,34 @@
         const socket = io();
 
         socket.on('new-message',(data) => {
-            console.log(data)
+            const messages = document.getElementById('messages')
+            messages.innerHTML += `
+                <div class="message" style="align-self: flex-start;">
+                    <h3>${data.user_name}</h3>
+                    <p>${data.message_text}</p>
+                </div>
+            `
         }) 
 
-        function sendMessage() {
-            socket.emit('new-message', {message_text: 'message...', user_name: 'gabriel'})
+        function sendMessage(event) {
+            event.preventDefault()
+            const inputMessage = document.getElementById('input-message')
+            const userName = document.getElementById('user-name')
+
+            socket.emit('new-message', {
+                message_text: inputMessage.value,
+                user_name: userName.innerHTML
+            })
+
+            const messages = document.getElementById('messages')
+            messages.innerHTML += `
+                <div class="message">
+                    <h3>${userName.innerHTML}</h3>
+                    <p>${inputMessage.value}</p>
+                </div>
+            `
+
+            inputMessage.value = ''
         }
     </script>
 </body>

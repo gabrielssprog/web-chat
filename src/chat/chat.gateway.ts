@@ -11,13 +11,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private connectedUsers = 0
 
   public handleConnection(client: Socket) {
-    console.log('connectou')
     this.connectedUsers++
     client.broadcast.emit('change-connected-users', { connectedUsers: this.connectedUsers})
   }
 
   public handleDisconnect(client: Socket) {
-    console.log('disconnectou')
     this.connectedUsers--
     client.broadcast.emit('change-connected-users', { connectedUsers: this.connectedUsers})
   }
