@@ -1,7 +1,7 @@
 # Web Chat
 
 <div align="center">
-    <img height="250" src="./public/images/preview.jpg">
+    <img height="350" src="./public/images/preview.jpg">
 </div>
 
 ## 🔎 Sobre
