@@ -13,7 +13,8 @@ describe('AppController', () => {
 
     appController = app.get<AppController>(AppController);
   });
-
-  describe('root', () => {
-  });
+  
+  it('should be health', () => {
+    expect(appController.health()).toBe('Health')
+  })
 });
