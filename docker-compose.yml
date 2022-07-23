@@ -1,5 +1,15 @@
 version: "3.7"
 services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: webchat
+    networks:
+      - app
+
   app:
     build: .
     ports:
@@ -9,3 +19,8 @@ services:
     environment:
       PORT: 3001
     command: npm run start:dev
+    networks:
+      - app
+
+networks:
+  app:
